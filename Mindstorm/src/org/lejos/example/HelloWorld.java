@@ -3,13 +3,17 @@ package org.lejos.example;
 import lejos.nxt.*;
 
 /**
- * Example leJOS Project with an ant build file
- *
+ * $Id: HelloWorld.java 1587 2008-05-02 17:19:41Z lgriffiths $
+ * 
+ * @author Lawrie Griffiths
+ * 
  */
-public class HelloWorld {
-
-	public static void main(String[] args) {
-		System.out.println("Hello World");
-		Button.waitForPress();
-	}
+public class HelloWorld
+{
+  public static void main (String[] aArg)
+  throws Exception
+  {
+     LCD.drawString("Hello World",3,4);
+     Thread.sleep(2000);
+  }
 }
