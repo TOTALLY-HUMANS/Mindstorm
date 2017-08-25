@@ -1,6 +1,7 @@
 package org.lejos.example.Behaviours;
 
 import lejos.nxt.Motor;
+import lejos.robotics.navigation.DifferentialPilot;
 
 public class MovementController {
     
@@ -9,44 +10,27 @@ public class MovementController {
     
     static int waitBetweenActions = 300;
     
-    public static void moveForward() throws InterruptedException {
-        Motor.B.setSpeed(movementSpeed);
-        Motor.A.setSpeed(movementSpeed);
-        Motor.B.forward();
-        Motor.A.forward();
-        Thread.sleep(waitBetweenActions);
-        Motor.B.stop();
-        Motor.A.stop();
+    DifferentialPilot pilot = new DifferentialPilot(5.6f,10f,Motor.A, Motor.B);
+    
+    public MovementController() {
+        pilot.setTravelSpeed(movementSpeed);
+        pilot.setRotateSpeed(turnSpeed);
     }
     
-    public static void moveBackward() throws InterruptedException {
-        Motor.B.setSpeed(movementSpeed);
-        Motor.A.setSpeed(movementSpeed);
-        Motor.B.backward();
-        Motor.A.backward();
-        Thread.sleep(waitBetweenActions);
-        Motor.B.stop();
-        Motor.A.stop();
+    public void moveForward() throws InterruptedException {
+        pilot.travel(5.0, false);
     }
     
-    public static void turnRight() throws InterruptedException {
-        Motor.B.setSpeed(turnSpeed);
-        Motor.B.backward();
-        Motor.A.setSpeed(turnSpeed);
-        Motor.A.forward();
-        Thread.sleep(waitBetweenActions);
-        Motor.B.stop();
-        Motor.A.stop();
+    public void moveBackward() throws InterruptedException {
+        pilot.travel(-5.0);
     }
     
-    public static void turnLeft() throws InterruptedException {
-        Motor.B.setSpeed(turnSpeed);
-        Motor.B.forward();
-        Motor.C.setSpeed(turnSpeed);
-        Motor.C.backward();
-        Thread.sleep(waitBetweenActions);
-        Motor.B.stop();
-        Motor.C.stop();
+    public void turnRight() throws InterruptedException {
+        pilot.rotate(22.5, false);
+    }
+    
+    public void turnLeft() throws InterruptedException {
+        pilot.rotate(-22.5, false);
     }
     
 }

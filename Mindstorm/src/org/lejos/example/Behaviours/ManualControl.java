@@ -18,11 +18,13 @@ import lejos.nxt.comm.Bluetooth;
  */
 public class ManualControl {
     
-    public static void listen() throws IOException, InterruptedException {
+    public void listen() throws IOException, InterruptedException {
     String connected = "Connected";
     String waiting = "Waiting...";
     String closing = "Closing...";
-        
+    
+    MovementController mc = new MovementController();
+    
     while (true)
     {
       LCD.drawString(waiting,0,0);
@@ -41,16 +43,16 @@ public class ManualControl {
         int n = dis.readChar();
         switch (n) {
             case 'w':
-                MovementController.moveForward();
+                mc.moveForward();
                 break;
             case 's':
-                MovementController.moveBackward();
+                mc.moveBackward();
                 break;
             case 'a':
-                MovementController.turnLeft();
+                mc.turnLeft();
                 break;
             case 'd':
-                MovementController.turnRight();
+                mc.turnRight();
         }
         dos.writeInt(1);
         dos.flush();

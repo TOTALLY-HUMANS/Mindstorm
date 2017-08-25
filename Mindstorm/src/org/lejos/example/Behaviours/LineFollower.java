@@ -12,13 +12,15 @@ public class LineFollower {
     static int colorThreshold = 24;
     static int lineSearchSteps = 4;
     
-    public static void start() throws InterruptedException {
+    MovementController mc = new MovementController();
+    
+    public void start() throws InterruptedException {
         advance();
     }
     
-    private static void advance() throws InterruptedException {
+    private void advance() throws InterruptedException {
         System.out.println("Forward!");
-        MovementController.moveBackward();
+        mc.moveBackward();
         if (lineFound()) {
             advance();
         } else {
@@ -26,7 +28,7 @@ public class LineFollower {
         }
     }
     
-    private static boolean lineFound() {
+    private boolean lineFound() {
         System.out.println("LV " + cs.getLightValue());
         if (cs.getLightValue() < colorThreshold) {
             return true;
@@ -34,20 +36,20 @@ public class LineFollower {
         return false;
     }
     
-    private static void searchForLine() throws InterruptedException {
+    private void searchForLine() throws InterruptedException {
         // Left search
         for (int i = 0; i < lineSearchSteps; i++) {
-            MovementController.turnLeft();
+            mc.turnLeft();
             if (lineFound()) advance();
         }
         // Return to middle
         for (int i = 0; i < lineSearchSteps; i++) {
-            MovementController.turnRight();
+            mc.turnRight();
             if (lineFound()) advance();
         }
         // Right search
         for (int i = 0; i < lineSearchSteps * 2; i++) {
-            MovementController.turnRight();
+            mc.turnRight();
             if (lineFound()) advance();
         }
         searchForLine();
