@@ -2,9 +2,12 @@ package pccontroller;
 
 import lejos.pc.comm.*;
 import java.io.*;
+import java.util.Scanner;
 
 public class PCController {	
 	public static void main(String[] args) {
+                Scanner reader = new Scanner(System.in);
+            
 		NXTConnector conn = new NXTConnector();
 	
 		conn.addLogListener(new NXTCommLogListener(){
@@ -34,10 +37,13 @@ public class PCController {
 		DataOutputStream dos = conn.getDataOut();
 		DataInputStream dis = conn.getDataIn();
 				
-		for(int i=0;i<100;i++) {
+		while (true) {
 			try {
-				System.out.println("Sending " + (i*30000));
-				dos.writeInt((i*30000));
+                                // Käskyt: w a s d
+                                System.out.print("Anna käsky: ");
+                                char n = reader.nextLine().charAt(0);
+				System.out.println("Sending " + (n));
+				dos.writeInt(n);
 				dos.flush();			
 				
 			} catch (IOException ioe) {
