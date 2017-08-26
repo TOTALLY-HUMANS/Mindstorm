@@ -5,8 +5,8 @@ import lejos.robotics.navigation.DifferentialPilot;
 
 public class MovementController {
 
-    static int movementSpeed = 10;
-    static int turnSpeed = 25;
+    static float movementSpeed = 10;
+    static float turnSpeed = 25;
 
     DifferentialPilot pilot = new DifferentialPilot(5.6f, 10f, Motor.A, Motor.B);
 
@@ -18,7 +18,7 @@ public class MovementController {
     public void moveForward() throws InterruptedException {
         moveForward(movementSpeed);
     }
-    public void moveForward(int speed) throws InterruptedException {
+    public void moveForward(float speed) throws InterruptedException {
         pilot.setTravelSpeed(speed);
         pilot.travel(2, false);
     }
@@ -26,7 +26,7 @@ public class MovementController {
     public void moveForwardContinuously() throws InterruptedException {
         moveForwardContinuously(movementSpeed);
     }
-    public void moveForwardContinuously(int speed) throws InterruptedException {
+    public void moveForwardContinuously(float speed) throws InterruptedException {
         pilot.setTravelSpeed(speed);
         pilot.forward();
     }
@@ -34,7 +34,7 @@ public class MovementController {
     public void moveBackward() throws InterruptedException {
         moveBackward(movementSpeed);
     }
-    public void moveBackward(int speed) throws InterruptedException {
+    public void moveBackward(float speed) throws InterruptedException {
         pilot.setTravelSpeed(speed);
         pilot.travel(-2);
     }
@@ -42,7 +42,7 @@ public class MovementController {
     public void moveBackwardContinuously() throws InterruptedException {
         moveBackwardContinuously(movementSpeed);
     }
-    public void moveBackwardContinuously(int speed) throws InterruptedException {
+    public void moveBackwardContinuously(float speed) throws InterruptedException {
         pilot.setTravelSpeed(speed);
         pilot.backward();
     }
@@ -50,7 +50,7 @@ public class MovementController {
     public void turnRight() throws InterruptedException {
         turnRight(turnSpeed);
     }
-    public void turnRight(int speed) throws InterruptedException {
+    public void turnRight(float speed) throws InterruptedException {
         pilot.setRotateSpeed(speed);
         pilot.rotate(90 / 8, false);
     }
@@ -58,7 +58,7 @@ public class MovementController {
     public void turnRightContinuously() throws InterruptedException {
         turnRightContinuously(turnSpeed);
     }
-    public void turnRightContinuously(int speed) throws InterruptedException {
+    public void turnRightContinuously(float speed) throws InterruptedException {
         pilot.setRotateSpeed(speed);
         pilot.rotateRight();
     }
@@ -66,7 +66,7 @@ public class MovementController {
     public void turnLeft() throws InterruptedException {
         turnLeft(turnSpeed);
     }
-    public void turnLeft(int speed) throws InterruptedException {
+    public void turnLeft(float speed) throws InterruptedException {
         pilot.setRotateSpeed(speed);
         pilot.rotate(-90 / 8, false);
     }
@@ -74,7 +74,7 @@ public class MovementController {
     public void turnLeftContinuously() throws InterruptedException {
         turnLeftContinuously(turnSpeed);
     }
-    public void turnLeftContinuously(int speed) throws InterruptedException {
+    public void turnLeftContinuously(float speed) throws InterruptedException {
         pilot.setRotateSpeed(speed);
         pilot.rotateLeft();
     }

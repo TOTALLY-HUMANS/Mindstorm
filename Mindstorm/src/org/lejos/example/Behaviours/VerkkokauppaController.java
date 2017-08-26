@@ -8,6 +8,7 @@ package org.lejos.example.Behaviours;
 import java.io.DataInputStream;
 import java.io.IOException;
 import lejos.nxt.LightSensor;
+import lejos.nxt.Motor;
 import lejos.nxt.SensorPort;
 import lejos.nxt.UltrasonicSensor;
 import org.lejos.example.AutomatedControl;
@@ -23,7 +24,7 @@ public class VerkkokauppaController implements AutomatedControl {
     
     public void start(DataInputStream dis) throws InterruptedException {
         try {
-            mc.moveBackwardContinuously();
+            mc.moveBackwardContinuously(Motor.A.getMaxSpeed());
             LightSensor ls = new LightSensor(SensorPort.S1);
             long startTime = 0;
             boolean stop = false;
@@ -31,7 +32,7 @@ public class VerkkokauppaController implements AutomatedControl {
             // from ramp to last spin
             while (!stop) {
                 stop = checkStop();
-                int lightValue = ls.getLightValue();
+                float lightValue = ls.getLightValue();
                 if (lightValue < 50) {
                     if (startTime == 0) {
                         startTime = System.currentTimeMillis();
@@ -48,7 +49,7 @@ public class VerkkokauppaController implements AutomatedControl {
             while (!stop) {
                 if (us.getDistance() > 100) {
                     Thread.sleep(2000);
-                    mc.moveBackwardContinuously();
+                    mc.moveBackwardContinuously(Motor.A.getMaxSpeed());
                     break;
                 }
             }
