@@ -27,7 +27,8 @@ public class LineFollower implements AutomatedControl {
     }
 
     private void advance() throws InterruptedException {
-        int n = 1;
+        
+        char n = 1;
         try {
             n = dis.readChar();
         } catch (IOException ex) {
@@ -37,8 +38,9 @@ public class LineFollower implements AutomatedControl {
             stop();
             return;
         }
+        System.out.println("" + n);
         
-        System.out.println("Forward!");
+        //System.out.println("Forward!");
         mc.moveForward();
         if (lineFound()) {
             advance();
@@ -57,6 +59,18 @@ public class LineFollower implements AutomatedControl {
     }
     
     private void searchForLine(int attempt) throws InterruptedException {
+        char n = 1;
+        try {
+            n = dis.readChar();
+        } catch (IOException ex) {
+            // error
+        }
+        if (n == '0') {
+            stop();
+            return;
+        }
+        System.out.println("" + n);
+        
         boolean lineFound = false;
         int steps = attempt;
         // Left search

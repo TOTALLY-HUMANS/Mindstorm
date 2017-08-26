@@ -62,10 +62,10 @@ public class ManualControl {
                     case 'd':
                         mc.turnRightContinuously();
                         break;
-                    case 'e':
+                    case 'r':
                         mc.grab();
                         break;
-                    case 'r':
+                    case 'e':
                         mc.ungrab();
                         break;
                     case '1':

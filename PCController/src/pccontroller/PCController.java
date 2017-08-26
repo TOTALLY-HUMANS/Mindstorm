@@ -29,7 +29,7 @@ public class PCController extends JFrame implements KeyListener {
         p.add(label);
         add(p);
         addKeyListener(this);
-        setSize(200, 100);
+        setSize(1000, 500);
         setVisible(true);
 
     }
