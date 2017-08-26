@@ -65,7 +65,9 @@ public class VerkkokauppaController implements AutomatedControl {
     public boolean shouldStop() {
         char n = 1;
         try {
-            n = dis.readChar();
+            if (dis.available() != 0) {
+                n = dis.readChar();
+            }
         } catch (IOException ex) {
             // error
         }
