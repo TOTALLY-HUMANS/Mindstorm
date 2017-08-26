@@ -5,8 +5,8 @@ import lejos.robotics.navigation.DifferentialPilot;
 
 public class MovementController {
     
-    static int movementSpeed = 200;
-    static int turnSpeed = 100;
+    static int movementSpeed = 10;
+    static int turnSpeed = 25;
     
     static int waitBetweenActions = 300;
     
@@ -18,19 +18,19 @@ public class MovementController {
     }
     
     public void moveForward() throws InterruptedException {
-        pilot.travel(5.0, false);
+        pilot.travel(2, false);
     }
     
     public void moveBackward() throws InterruptedException {
-        pilot.travel(-5.0);
+        pilot.travel(-2);
     }
     
     public void turnRight() throws InterruptedException {
-        pilot.rotate(22.5, false);
+        pilot.rotate(90/8, false);
     }
     
     public void turnLeft() throws InterruptedException {
-        pilot.rotate(-22.5, false);
+        pilot.rotate(-90/8, false);
     }
     
 }
