@@ -33,22 +33,27 @@ public class LineFollower {
     }
 
     private void searchForLine() throws InterruptedException {
+        searchForLine(1);
+    }
+    
+    private void searchForLine(int attempt) throws InterruptedException {
         boolean lineFound = false;
+        int steps = attempt;
         // Left search
         if (lastFoundLeft) {
-            lineFound = searchLeft() || searchRight() || searchRight();
+            lineFound = searchLeft(steps) || searchRight(steps) || searchRight(steps);
         } else {
-            lineFound = searchRight() || searchLeft() || searchLeft();
+            lineFound = searchRight(steps) || searchLeft(steps) || searchLeft(steps);
         }
         if (lineFound) {
             advance();
         } else {
-            searchForLine();
+            searchForLine(attempt + 1);
         }
     }
 
-    private boolean searchLeft() throws InterruptedException {
-        for (int i = 0; i < lineSearchSteps; i++) {
+    private boolean searchLeft(int steps) throws InterruptedException {
+        for (int i = 0; i < steps; i++) {
             mc.turnLeft();
             if (lineFound()) {
                 lastFoundLeft = true;
@@ -58,9 +63,9 @@ public class LineFollower {
         return false;
     }
 
-    private boolean searchRight() throws InterruptedException {
+    private boolean searchRight(int steps) throws InterruptedException {
         // Right search
-        for (int i = 0; i < lineSearchSteps; i++) {
+        for (int i = 0; i < steps; i++) {
             mc.turnRight();
             if (lineFound()) {
                 lastFoundLeft = false;
