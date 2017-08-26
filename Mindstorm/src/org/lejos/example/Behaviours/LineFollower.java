@@ -11,8 +11,8 @@ public class LineFollower implements AutomatedControl {
     static LightSensor cs = new LightSensor(SensorPort.S1);
     static int colorThreshold = 50;
     static int lineSearchSteps = 8;
-    static boolean stop = false;
-
+    static boolean stopping = false;
+    
     MovementController mc = new MovementController();
     DataInputStream dis;
     
@@ -24,6 +24,7 @@ public class LineFollower implements AutomatedControl {
 
     public void start(DataInputStream dis) throws InterruptedException {
         this.dis = dis;
+        stopping = false;
         while (!shouldStop()) {
             if (!advance()) {
                 searchForLine();
@@ -47,6 +48,8 @@ public class LineFollower implements AutomatedControl {
     }
     
     private void searchForLine(int attempt) throws InterruptedException {
+        if (shouldStop()) return;
+        
         boolean lineFound = false;
         int steps = attempt;
         // Left search
@@ -61,6 +64,8 @@ public class LineFollower implements AutomatedControl {
     }
 
     private boolean searchLeft(int steps) throws InterruptedException {
+        if (shouldStop()) return true;
+        
         for (int i = 0; i < steps; i++) {
             mc.turnLeft();
             if (lineFound()) {
@@ -72,6 +77,8 @@ public class LineFollower implements AutomatedControl {
     }
 
     private boolean searchRight(int steps) throws InterruptedException {
+        if (shouldStop()) return true;
+        
         // Right search
         for (int i = 0; i < steps; i++) {
             mc.turnRight();
@@ -84,6 +91,10 @@ public class LineFollower implements AutomatedControl {
     }
     
     public boolean shouldStop() {
+        if (stopping) {
+            return true;
+        }
+        
         char n = 1;
         try {
             n = dis.readChar();
@@ -91,6 +102,7 @@ public class LineFollower implements AutomatedControl {
             // error
         }
         if (n == '0') {
+            stopping = true;
             return true;
         }
         return false;

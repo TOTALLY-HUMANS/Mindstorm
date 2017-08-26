@@ -7,7 +7,6 @@ package org.lejos.example.Behaviours;
 
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 import lejos.nxt.LightSensor;
 import lejos.nxt.Motor;
 import lejos.nxt.SensorPort;
@@ -49,7 +48,7 @@ public class VerkkokauppaController implements AutomatedControl {
             UltrasonicSensor us = new UltrasonicSensor(SensorPort.S4);
             while (!stop) {
                 if (us.getDistance() > 100) {
-                    TimeUnit.SECONDS.sleep(2);
+                    Thread.sleep(2000);
                     mc.moveBackwardContinuously(Motor.A.getMaxSpeed());
                     break;
                 }
