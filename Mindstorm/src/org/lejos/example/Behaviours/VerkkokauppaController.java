@@ -51,7 +51,7 @@ public class VerkkokauppaController implements AutomatedControl {
                 Integer distance = us.getDistance();
                 if (distance != null && us.getDistance() > 100) {
                     Thread.sleep(2000);
-                    mc.moveBackwardContinuously(Motor.A.getMaxSpeed());
+                    mc.moveForwardContinuously(Motor.A.getMaxSpeed());
                     break;
                 }
             }
