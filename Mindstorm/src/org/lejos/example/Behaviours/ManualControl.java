@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import lejos.nxt.LCD;
 import lejos.nxt.Motor;
+import lejos.nxt.SensorPort;
 import lejos.nxt.Sound;
 import lejos.nxt.comm.BTConnection;
 import lejos.nxt.comm.Bluetooth;
@@ -23,6 +24,7 @@ public class ManualControl {
 
     LineFollower lf;
     VerkkokauppaController vk;
+    BumpNavigator bn;
 
     public ManualControl() {
         this.lf = new LineFollower();
@@ -84,7 +86,9 @@ public class ManualControl {
                         mc.ungrab();
                         break;
                     case '1':
-                        // mode 1
+                        Sound.beep();
+                        bn.start(dis);
+                        Sound.beep();
                         break;
                     case '2':
                         Sound.beep();
