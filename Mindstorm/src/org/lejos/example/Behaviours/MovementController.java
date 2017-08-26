@@ -16,10 +16,19 @@ public class MovementController {
     }
 
     public void moveForward() throws InterruptedException {
+        moveForward(movementSpeed);
+    }
+    public void moveForward(int speed) throws InterruptedException {
+        pilot.setTravelSpeed(speed);
         pilot.travel(2, false);
     }
-
+    
     public void moveForwardContinuously() throws InterruptedException {
+        moveForwardContinuously(movementSpeed);
+    }
+
+    public void moveForwardContinuously(int speed) throws InterruptedException {
+        pilot.setTravelSpeed(speed);
         pilot.forward();
     }
 
