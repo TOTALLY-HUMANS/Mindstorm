@@ -26,7 +26,6 @@ public class VerkkokauppaController implements AutomatedControl {
         this.dis = dis;
         try {
             mc.moveBackwardContinuously(Motor.A.getMaxSpeed());
-            LightSensor ls = new LightSensor(SensorPort.S1);
             long startTime = System.currentTimeMillis();
             boolean stop = false;
             startTime = System.currentTimeMillis();
