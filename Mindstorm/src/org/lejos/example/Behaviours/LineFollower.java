@@ -11,8 +11,8 @@ public class LineFollower implements AutomatedControl {
     static LightSensor cs = new LightSensor(SensorPort.S1);
     static int colorThreshold = 50;
     static int lineSearchSteps = 8;
-    static boolean stop = false;
-
+    static boolean stopping = false;
+    
     MovementController mc = new MovementController();
     DataInputStream dis;
     
@@ -24,22 +24,18 @@ public class LineFollower implements AutomatedControl {
 
     public void start(DataInputStream dis) throws InterruptedException {
         this.dis = dis;
-        advance();
+        stopping = false;
+        while (!shouldStop()) {
+            if (!advance()) {
+                searchForLine();
+            }
+        }
     }
 
-    private void advance() throws InterruptedException {
-        stop = checkStop();
-        if (stop) {
-            return;
-        }
-        
+    private boolean advance() throws InterruptedException {
         //System.out.println("Forward!");
         mc.moveForward();
-        if (lineFound()) {
-            advance();
-        } else {
-            searchForLine();
-        }
+        return lineFound();
     }
 
     private boolean lineFound() {
@@ -52,11 +48,8 @@ public class LineFollower implements AutomatedControl {
     }
     
     private void searchForLine(int attempt) throws InterruptedException {
-        stop = checkStop();
-        if (stop) {
-            return;
-        }
-
+        if (shouldStop()) return;
+        
         boolean lineFound = false;
         int steps = attempt;
         // Left search
@@ -65,18 +58,13 @@ public class LineFollower implements AutomatedControl {
         } else {
             lineFound = searchRight(steps) || searchLeft(steps) || searchLeft(steps);
         }
-        if (lineFound) {
-            advance();
-        } else {
+        if (!lineFound) {
             searchForLine(attempt + 1);
         }
     }
 
     private boolean searchLeft(int steps) throws InterruptedException {
-        stop = checkStop();
-        if (stop) {
-            return false;
-        }
+        if (shouldStop()) return true;
         
         for (int i = 0; i < steps; i++) {
             mc.turnLeft();
@@ -89,10 +77,7 @@ public class LineFollower implements AutomatedControl {
     }
 
     private boolean searchRight(int steps) throws InterruptedException {
-        stop = checkStop();
-        if (stop) {
-            return false;
-        }
+        if (shouldStop()) return true;
         
         // Right search
         for (int i = 0; i < steps; i++) {
@@ -105,7 +90,11 @@ public class LineFollower implements AutomatedControl {
         return false;
     }
     
-    public boolean checkStop() {
+    public boolean shouldStop() {
+        if (stopping) {
+            return true;
+        }
+        
         char n = 1;
         try {
             n = dis.readChar();
@@ -113,6 +102,7 @@ public class LineFollower implements AutomatedControl {
             // error
         }
         if (n == '0') {
+            stopping = true;
             return true;
         }
         return false;
