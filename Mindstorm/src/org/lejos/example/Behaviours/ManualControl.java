@@ -59,22 +59,22 @@ public class ManualControl {
                     case 's':
                         mc.moveBackwardContinuously();
                         break;
-                    case 'a':
+                    case 'd':
                         mc.turnLeftContinuously();
                         break;
-                    case 'd':
+                    case 'a':
                         mc.turnRightContinuously();
                         break;
                     case 'i':
-                        mc.moveForwardContinuously(Motor.A.getMaxSpeed() * 0.60f);
+                        mc.moveForwardContinuously(Motor.A.getMaxSpeed() * 0.80f);
                         break;
                     case 'k':
-                        mc.moveBackwardContinuously(Motor.A.getMaxSpeed() * 0.60f);
-                        break;
-                    case 'j':
-                        mc.turnLeftContinuously(Motor.A.getMaxSpeed() * 0.350f);
+                        mc.moveBackwardContinuously(Motor.A.getMaxSpeed() * 0.80f);
                         break;
                     case 'l':
+                        mc.turnLeftContinuously(Motor.A.getMaxSpeed() * 0.350f);
+                        break;
+                    case 'j':
                         mc.turnRightContinuously(Motor.A.getMaxSpeed() * 0.350f);
                         break;
                     case 'r':
