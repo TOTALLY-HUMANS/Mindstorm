@@ -9,17 +9,17 @@ import org.lejos.example.AutomatedControl;
 public class LineFollower implements AutomatedControl {
 
     static LightSensor cs = new LightSensor(SensorPort.S1);
-    static int colorThreshold = 50;
+    static int colorThreshold = 40;
     static int lineSearchSteps = 8;
     static boolean stopping = false;
-    
+
     MovementController mc = new MovementController();
     DataInputStream dis;
-    
+
     boolean lastFoundLeft = false;
-    
+
     public LineFollower() {
-        
+
     }
 
     public void start(DataInputStream dis) throws InterruptedException {
@@ -46,10 +46,12 @@ public class LineFollower implements AutomatedControl {
     private void searchForLine() throws InterruptedException {
         searchForLine(1);
     }
-    
+
     private void searchForLine(int attempt) throws InterruptedException {
-        if (shouldStop()) return;
-        
+        if (shouldStop()) {
+            return;
+        }
+
         boolean lineFound = false;
         int steps = attempt;
         // Left search
@@ -64,8 +66,10 @@ public class LineFollower implements AutomatedControl {
     }
 
     private boolean searchLeft(int steps) throws InterruptedException {
-        if (shouldStop()) return true;
-        
+        if (shouldStop()) {
+            return true;
+        }
+
         for (int i = 0; i < steps; i++) {
             mc.turnLeft();
             if (lineFound()) {
@@ -77,8 +81,10 @@ public class LineFollower implements AutomatedControl {
     }
 
     private boolean searchRight(int steps) throws InterruptedException {
-        if (shouldStop()) return true;
-        
+        if (shouldStop()) {
+            return true;
+        }
+
         // Right search
         for (int i = 0; i < steps; i++) {
             mc.turnRight();
@@ -89,15 +95,17 @@ public class LineFollower implements AutomatedControl {
         }
         return false;
     }
-    
+
     public boolean shouldStop() {
         if (stopping) {
             return true;
         }
-        
+
         char n = 1;
         try {
-            n = dis.readChar();
+            if (dis.available() != 0) {
+                n = dis.readChar();
+            }
         } catch (IOException ex) {
             // error
         }
