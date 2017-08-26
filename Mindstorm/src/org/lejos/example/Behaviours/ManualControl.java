@@ -55,11 +55,11 @@ public class ManualControl {
                     case 'd':
                         mc.turnRightContinuously();
                         break;
-                    case 'p':
-                        // pince
+                    case 'e':
+                        mc.grab();
                         break;
                     case 'r':
-                        // release
+                        mc.ungrab();
                         break;
                     case '1':
                         // mode 1
@@ -72,6 +72,9 @@ public class ManualControl {
                         break;
                     case 'n':
                         mc.stop();
+                        break;
+                    case 'x':
+                        mc.release();
                         break;
                     case 'q':
                         stop = true;
