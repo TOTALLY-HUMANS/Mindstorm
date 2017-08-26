@@ -21,12 +21,24 @@ public class MovementController {
         pilot.travel(2, false);
     }
     
+    public void moveForwardContinuously() throws InterruptedException {
+        pilot.forward();
+    }
+    
     public void moveBackward() throws InterruptedException {
         pilot.travel(-2);
     }
     
+    public void moveBackwardContinuously() throws InterruptedException {
+        pilot.backward();
+    }
+    
     public void turnRight() throws InterruptedException {
         pilot.rotate(90/8, false);
+    }
+    
+    public void turnRightContinuously() throws InterruptedException {
+        pilot.rotateRight();
     }
     
     public void turnLeft() throws InterruptedException {
@@ -45,4 +57,11 @@ public class MovementController {
         Thread.sleep(3000);
     }
     
+    public void turnLeftContinuously() throws InterruptedException {
+        pilot.rotateLeft();
+    }
+    
+    public void stop() throws InterruptedException {
+        pilot.stop();
+    }
 }
