@@ -21,42 +21,23 @@ public class VerkkokauppaController implements AutomatedControl {
 
     MovementController mc = new MovementController();
     DataInputStream dis;
-    
+
     public void start(DataInputStream dis) throws InterruptedException {
         this.dis = dis;
         try {
             mc.moveBackwardContinuously(Motor.A.getMaxSpeed());
             LightSensor ls = new LightSensor(SensorPort.S1);
-            long startTime = 0;
+            long startTime = System.currentTimeMillis();
             boolean stop = false;
-            
+            startTime = System.currentTimeMillis();
             // from ramp to last spin
             while (!stop) {
                 stop = shouldStop();
-                float lightValue = ls.getLightValue();
-                if (lightValue < 50) {
-                    if (startTime == 0) {
-                        startTime = System.currentTimeMillis();
-                    } else {
-                        if (System.currentTimeMillis() - startTime > 3000) {
-                            mc.stop();
-                            break;
-                        }
-                    }
-                }
-            }
-            
-            UltrasonicSensor us = new UltrasonicSensor(SensorPort.S4);
-            while (!stop) {
-                Integer distance = us.getDistance();
-                if (distance != null && us.getDistance() > 100) {
-                    Thread.sleep(2000);
-                    mc.moveBackwardContinuously(Motor.A.getMaxSpeed());
+                if (System.currentTimeMillis() - startTime > 5000) {
+                    mc.stop();
                     break;
                 }
             }
-            mc.stop();
-            
         } catch (InterruptedException ex) {
             System.out.println("Command failed");
         }
@@ -76,5 +57,5 @@ public class VerkkokauppaController implements AutomatedControl {
         }
         return false;
     }
-    
+
 }
