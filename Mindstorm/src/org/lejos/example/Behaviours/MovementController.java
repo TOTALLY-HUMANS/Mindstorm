@@ -21,16 +21,35 @@ public class MovementController {
         pilot.travel(5.0, false);
     }
     
+    public void moveForwardContinuously() throws InterruptedException {
+        pilot.forward();
+    }
+    
     public void moveBackward() throws InterruptedException {
         pilot.travel(-5.0);
+    }
+    
+    public void moveBackwardContinuously() throws InterruptedException {
+        pilot.backward();
     }
     
     public void turnRight() throws InterruptedException {
         pilot.rotate(22.5, false);
     }
     
+    public void turnRightContinuously() throws InterruptedException {
+        pilot.rotateRight();
+    }
+    
     public void turnLeft() throws InterruptedException {
         pilot.rotate(-22.5, false);
     }
     
+    public void turnLeftContinuously() throws InterruptedException {
+        pilot.rotateLeft();
+    }
+    
+    public void stop() throws InterruptedException {
+        pilot.stop();
+    }
 }
