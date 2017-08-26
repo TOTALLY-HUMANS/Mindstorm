@@ -5,6 +5,7 @@ import lejos.nxt.comm.*;
 import java.io.*;
 import org.lejos.example.Behaviours.LineFollower;
 import org.lejos.example.Behaviours.ManualControl;
+import org.lejos.example.Behaviours.MovementController;
 
 /**
  * Receive data from another NXT, a PC, a phone, 
@@ -21,6 +22,14 @@ public class HelloWorld {
 
   public static void main(String [] args)  throws Exception 
   {
+      //MovementController m = new MovementController();
+      //m.grab();
+      //m.moveBackward();
+      //m.moveBackward();
+      //m.moveBackward();
+      //m.ungrab();
+      //m.moveForward();
+      
       ManualControl mc = new ManualControl();
       mc.listen();
       //LineFollower lf = new LineFollower();
