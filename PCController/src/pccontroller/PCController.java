@@ -20,7 +20,7 @@ public class PCController extends JFrame implements KeyListener {
     NXTConnector conn;
     HashMap<Character, Boolean> keyDownMap = new HashMap<Character, Boolean>();
 
-    public PCController(String s) {
+    public PCController(String s) throws InterruptedException, IOException {
         super(s);
 
         connect();
@@ -32,12 +32,15 @@ public class PCController extends JFrame implements KeyListener {
         setSize(1000, 500);
         setVisible(true);
 
+        logSensors();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException, IOException {
         //Scanner reader = new Scanner(System.in);
 
         new PCController("Key Listener Tester");
+        
+        
         /*
         while (true) {
             try {
@@ -64,6 +67,14 @@ public class PCController extends JFrame implements KeyListener {
         }
          */
 
+    }
+    
+    public void logSensors() throws InterruptedException, IOException {
+        Thread.sleep(1000);
+        if (dis.available() != 0) {
+            System.out.println("SENSOR: " + dis.readInt());
+        }
+        logSensors();
     }
 
     @Override

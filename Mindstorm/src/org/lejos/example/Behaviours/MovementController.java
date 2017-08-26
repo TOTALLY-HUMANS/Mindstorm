@@ -6,7 +6,7 @@ import lejos.robotics.navigation.DifferentialPilot;
 public class MovementController {
 
     static float movementSpeed = 10;
-    static float turnSpeed = 25;
+    static float turnSpeed = 40;
 
     DifferentialPilot pilot = new DifferentialPilot(5.6f, 10f, Motor.A, Motor.B);
 
@@ -52,7 +52,7 @@ public class MovementController {
     }
     public void turnRight(float speed) throws InterruptedException {
         pilot.setRotateSpeed(speed);
-        pilot.rotate(90 / 8, false);
+        pilot.rotate(90 / 16, false);
     }
 
     public void turnRightContinuously() throws InterruptedException {
@@ -68,7 +68,7 @@ public class MovementController {
     }
     public void turnLeft(float speed) throws InterruptedException {
         pilot.setRotateSpeed(speed);
-        pilot.rotate(-90 / 8, false);
+        pilot.rotate(-90 / 16, false);
     }
 
     public void turnLeftContinuously() throws InterruptedException {

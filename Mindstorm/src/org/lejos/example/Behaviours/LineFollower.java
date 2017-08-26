@@ -56,12 +56,12 @@ public class LineFollower implements AutomatedControl {
         int steps = attempt;
         // Left search
         if (lastFoundLeft) {
-            lineFound = searchLeft(steps) || searchRight(steps) || searchRight(steps);
+            lineFound = searchLeft(steps) || searchRight(steps) || searchRight(steps + 1) || searchLeft(steps + 1);
         } else {
-            lineFound = searchRight(steps) || searchLeft(steps) || searchLeft(steps);
+            lineFound = searchRight(steps) || searchLeft(steps) || searchLeft(steps + 1) || searchRight(steps + 1);
         }
         if (!lineFound) {
-            searchForLine(attempt + 1);
+            searchForLine(attempt + 2);
         }
     }
 
