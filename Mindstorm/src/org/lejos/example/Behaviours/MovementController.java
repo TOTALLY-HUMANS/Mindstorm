@@ -23,6 +23,11 @@ public class MovementController {
         pilot.travel(2, false);
     }
     
+    public void moveForward(float speed, float distance) throws InterruptedException {
+        pilot.setTravelSpeed(speed);
+        pilot.travel(distance);
+    }
+    
     public void moveForwardContinuously() throws InterruptedException {
         moveForwardContinuously(movementSpeed);
     }
@@ -37,6 +42,11 @@ public class MovementController {
     public void moveBackward(float speed) throws InterruptedException {
         pilot.setTravelSpeed(speed);
         pilot.travel(-2);
+    }
+    
+    public void moveBackward(float speed, float distance) throws InterruptedException {
+        pilot.setTravelSpeed(speed);
+        pilot.travel(-1.0 * distance);
     }
 
     public void moveBackwardContinuously() throws InterruptedException {
@@ -58,6 +68,8 @@ public class MovementController {
         pilot.setRotateSpeed(speed);
         pilot.rotate(angle, false);
     }
+    
+   
 
     public void turnRightContinuously() throws InterruptedException {
         turnRightContinuously(turnSpeed);
@@ -74,10 +86,11 @@ public class MovementController {
     public void turnLeft(float speed) throws InterruptedException {
         turnLeft(speed, 90 / 16);
     }
+   
     
     public void turnLeft(float speed, float angle) throws InterruptedException {
         pilot.setRotateSpeed(speed);
-        pilot.rotate(-angle, false);
+        pilot.rotate(-1.0 * angle, false);
     }
 
     public void turnLeftContinuously() throws InterruptedException {
