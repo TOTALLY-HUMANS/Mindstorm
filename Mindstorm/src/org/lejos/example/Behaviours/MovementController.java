@@ -26,33 +26,56 @@ public class MovementController {
     public void moveForwardContinuously() throws InterruptedException {
         moveForwardContinuously(movementSpeed);
     }
-
     public void moveForwardContinuously(int speed) throws InterruptedException {
         pilot.setTravelSpeed(speed);
         pilot.forward();
     }
 
     public void moveBackward() throws InterruptedException {
+        moveBackward(movementSpeed);
+    }
+    public void moveBackward(int speed) throws InterruptedException {
+        pilot.setTravelSpeed(speed);
         pilot.travel(-2);
     }
 
     public void moveBackwardContinuously() throws InterruptedException {
+        moveBackwardContinuously(movementSpeed);
+    }
+    public void moveBackwardContinuously(int speed) throws InterruptedException {
+        pilot.setTravelSpeed(speed);
         pilot.backward();
     }
 
     public void turnRight() throws InterruptedException {
+        turnRight(turnSpeed);
+    }
+    public void turnRight(int speed) throws InterruptedException {
+        pilot.setRotateSpeed(speed);
         pilot.rotate(90 / 8, false);
     }
 
-    public void turnRightContinuously() throws InterruptedException {
+    public void turnRightContinously() throws InterruptedException {
+        turnRightContinuously(turnSpeed);
+    }
+    public void turnRightContinuously(int speed) throws InterruptedException {
+        pilot.setRotateSpeed(speed);
         pilot.rotateRight();
     }
 
     public void turnLeft() throws InterruptedException {
+        turnLeft(turnSpeed);
+    }
+    public void turnLeft(int speed) throws InterruptedException {
+        pilot.setRotateSpeed(speed);
         pilot.rotate(-90 / 8, false);
     }
 
-    public void turnLeftContinuously() throws InterruptedException {
+    public void turnLeftContinously() throws InterruptedException {
+        turnLeftContinuously(turnSpeed);
+    }
+    public void turnLeftContinuously(int speed) throws InterruptedException {
+        pilot.setRotateSpeed(speed);
         pilot.rotateLeft();
     }
 

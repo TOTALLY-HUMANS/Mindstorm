@@ -27,19 +27,7 @@ public class LineFollower implements AutomatedControl {
     }
 
     private void advance() throws InterruptedException {
-        
-        char n = 1;
-        try {
-            n = dis.readChar();
-        } catch (IOException ex) {
-            // error
-        }
-        if (n == '0') {
-            stop();
-            return;
-        }
-        System.out.println("" + n);
-        
+        checkIfStop();
         //System.out.println("Forward!");
         mc.moveForward();
         if (lineFound()) {
@@ -59,18 +47,7 @@ public class LineFollower implements AutomatedControl {
     }
     
     private void searchForLine(int attempt) throws InterruptedException {
-        char n = 1;
-        try {
-            n = dis.readChar();
-        } catch (IOException ex) {
-            // error
-        }
-        if (n == '0') {
-            stop();
-            return;
-        }
-        System.out.println("" + n);
-        
+        checkIfStop();
         boolean lineFound = false;
         int steps = attempt;
         // Left search
@@ -87,6 +64,7 @@ public class LineFollower implements AutomatedControl {
     }
 
     private boolean searchLeft(int steps) throws InterruptedException {
+        checkIfStop();
         for (int i = 0; i < steps; i++) {
             mc.turnLeft();
             if (lineFound()) {
@@ -98,6 +76,7 @@ public class LineFollower implements AutomatedControl {
     }
 
     private boolean searchRight(int steps) throws InterruptedException {
+        checkIfStop();
         // Right search
         for (int i = 0; i < steps; i++) {
             mc.turnRight();
@@ -109,8 +88,22 @@ public class LineFollower implements AutomatedControl {
         return false;
     }
     
+    private void checkIfStop() {
+        stop();
+    }
+    
     public void stop() {
-        System.out.println("Switched to manual control!");
+        char n = 1;
+        try {
+            n = dis.readChar();
+        } catch (IOException ex) {
+            // error
+        }
+        if (n == '0') {
+            System.out.println("Switched to manual control!");
+            return;
+        }
+        System.out.println("" + n);
     }
 
 }
