@@ -109,8 +109,6 @@ public class ManualControl {
                         stop = true;
                         break;
                 }
-                dos.writeInt(1);
-                dos.flush();
 
                 if (stop) {
                     break;

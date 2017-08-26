@@ -32,7 +32,7 @@ public class PCController extends JFrame implements KeyListener {
         setSize(1000, 500);
         setVisible(true);
 
-        logSensors();
+        //logSensors();
     }
 
     public static void main(String[] args) throws InterruptedException, IOException {
