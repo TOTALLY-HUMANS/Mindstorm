@@ -2,8 +2,6 @@ package org.lejos.example.Behaviours;
 
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import lejos.nxt.LightSensor;
 import lejos.nxt.SensorPort;
 import org.lejos.example.AutomatedControl;
@@ -33,7 +31,7 @@ public class LineFollower implements AutomatedControl {
         try {
             n = dis.readChar();
         } catch (IOException ex) {
-            Logger.getLogger(LineFollower.class.getName()).log(Level.SEVERE, null, ex);
+            // error
         }
         if (n == '0') {
             stop();

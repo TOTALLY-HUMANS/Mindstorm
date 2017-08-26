@@ -10,6 +10,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import lejos.nxt.LCD;
+import lejos.nxt.Sound;
 import lejos.nxt.comm.BTConnection;
 import lejos.nxt.comm.Bluetooth;
 
@@ -74,7 +75,9 @@ public class ManualControl {
                         // mode 2
                         break;
                     case '3':
+                        Sound.beep();
                         lf.start(dis);
+                        Sound.beep();
                         break;
                     case '0':
                         mc.stop();

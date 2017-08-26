@@ -30,9 +30,9 @@ public class HelloWorld {
       //m.ungrab();
       //m.moveForward();
       
-      //ManualControl mc = new ManualControl();
-      //mc.listen();
-      LineFollower lf = new LineFollower();
-      lf.start();
+      ManualControl mc = new ManualControl();
+      mc.listen();
+      //LineFollower lf = new LineFollower();
+      //lf.start();
   }
 }
