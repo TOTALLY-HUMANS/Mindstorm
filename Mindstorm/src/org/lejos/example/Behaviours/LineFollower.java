@@ -10,8 +10,11 @@ public class LineFollower implements AutomatedControl {
 
     static LightSensor cs = new LightSensor(SensorPort.S1);
     static int colorThreshold = 40;
-    static int lineSearchSteps = 8;
     static boolean stopping = false;
+
+    int smallRot = 5;
+    int bigRot = 60;
+    int rotSpeed = 80;
 
     MovementController mc = new MovementController();
     DataInputStream dis;
@@ -38,9 +41,10 @@ public class LineFollower implements AutomatedControl {
         return lineFound();
     }
 
-    private boolean lineFound() {
+    private boolean lineFound() throws InterruptedException {
         System.out.println("LV " + cs.getLightValue());
-        return cs.getLightValue() < colorThreshold;
+        boolean found = cs.getLightValue() < colorThreshold;
+        return found;
     }
 
     private void searchForLine() throws InterruptedException {
@@ -70,13 +74,27 @@ public class LineFollower implements AutomatedControl {
             return true;
         }
 
+        /*if (steps == 1) {
+            mc.turnLeft(rotSpeed, smallRot);
+            if (lineFound()) {
+                lastFoundLeft = true;
+                return true;
+            }
+        } else if (steps == 2) {
+            mc.turnLeft(rotSpeed, bigRot);
+            if (lineFound()) {
+                lastFoundLeft = true;
+                return true;
+            }
+        } else {*/
         for (int i = 0; i < steps; i++) {
-            mc.turnLeft();
+            mc.turnLeft(rotSpeed, smallRot);
             if (lineFound()) {
                 lastFoundLeft = true;
                 return true;
             }
         }
+        //}
         return false;
     }
 
@@ -85,14 +103,28 @@ public class LineFollower implements AutomatedControl {
             return true;
         }
 
+        /*if (steps == 1) {
+            mc.turnRight(rotSpeed, smallRot);
+            if (lineFound()) {
+                lastFoundLeft = false;
+                return true;
+            }
+        } else if (steps == 2) {
+            mc.turnRight(rotSpeed, bigRot);
+            if (lineFound()) {
+                lastFoundLeft = false;
+                return true;
+            }
+        } else {*/
         // Right search
         for (int i = 0; i < steps; i++) {
-            mc.turnRight();
+            mc.turnRight(rotSpeed, smallRot);
             if (lineFound()) {
                 lastFoundLeft = false;
                 return true;
             }
         }
+        //}
         return false;
     }
 
