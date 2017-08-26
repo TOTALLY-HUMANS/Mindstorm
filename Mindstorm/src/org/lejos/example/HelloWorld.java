@@ -21,8 +21,9 @@ public class HelloWorld {
 
   public static void main(String [] args)  throws Exception 
   {
-      ManualControl mc = new ManualControl();
-      mc.listen();
-      //LineFollower.start();
+      //ManualControl mc = new ManualControl();
+      //mc.listen();
+      LineFollower lf = new LineFollower();
+      lf.start();
   }
 }

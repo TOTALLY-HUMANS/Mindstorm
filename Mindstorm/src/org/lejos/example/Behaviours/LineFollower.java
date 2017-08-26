@@ -20,7 +20,7 @@ public class LineFollower {
     
     private void advance() throws InterruptedException {
         System.out.println("Forward!");
-        mc.moveBackward();
+        mc.moveForward();
         if (lineFound()) {
             advance();
         } else {
