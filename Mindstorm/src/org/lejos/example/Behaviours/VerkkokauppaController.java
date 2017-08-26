@@ -25,7 +25,7 @@ public class VerkkokauppaController implements AutomatedControl {
     public void start(DataInputStream dis) throws InterruptedException {
         this.dis = dis;
         try {
-            mc.moveBackwardContinuously(Motor.A.getMaxSpeed());
+            mc.moveBackwardContinuously(Motor.A.getMaxSpeed() * 0.75f);
             long startTime = System.currentTimeMillis();
             boolean stop = false;
             startTime = System.currentTimeMillis();
