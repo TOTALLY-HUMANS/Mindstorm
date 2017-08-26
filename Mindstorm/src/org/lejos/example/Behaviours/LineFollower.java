@@ -35,7 +35,7 @@ public class LineFollower implements AutomatedControl {
             // error
         }
         if (n == '0') {
-            stop();
+            checkStop();
             return;
         }
         System.out.println("" + n);
@@ -66,7 +66,7 @@ public class LineFollower implements AutomatedControl {
             // error
         }
         if (n == '0') {
-            stop();
+            checkStop();
             return;
         }
         System.out.println("" + n);
@@ -109,8 +109,9 @@ public class LineFollower implements AutomatedControl {
         return false;
     }
     
-    public void stop() {
+    public boolean checkStop() {
         System.out.println("Switched to manual control!");
+        return true;
     }
 
 }
