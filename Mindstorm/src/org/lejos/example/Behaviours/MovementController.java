@@ -33,4 +33,16 @@ public class MovementController {
         pilot.rotate(-90/8, false);
     }
     
+    public void grab() throws InterruptedException {
+        Motor.C.setSpeed(40);
+        Motor.C.forward();
+        Thread.sleep(1500);
+    }
+    
+    public void ungrab() throws InterruptedException {
+        Motor.C.setSpeed(40);
+        Motor.C.backward();
+        Thread.sleep(3000);
+    }
+    
 }
