@@ -31,7 +31,7 @@ public class VerkkokauppaController implements AutomatedControl {
             TouchSensor touch = new TouchSensor(SensorPort.S4);
             LightSensor light = new LightSensor(SensorPort.S1);
             
-            mc.moveBackwardContinuously(maxSpeed);
+            mc.moveBackward(maxSpeed, 100);
             long startTime = System.currentTimeMillis();
             boolean stop = false;
             startTime = System.currentTimeMillis();
@@ -41,9 +41,8 @@ public class VerkkokauppaController implements AutomatedControl {
                 if (light.readValue() < 40) {
                     blacksFound++;
                 }
-                if (System.currentTimeMillis() - startTime > 4000) {
-                    break;
-                } else if (touch.isPressed()) {
+                
+                if (touch.isPressed()) {
                     mc.stop();
                     mc.moveForward(maxSpeed * 0.75f, 10);
                     mc.turnRight(maxSpeed * 0.5f, 33);
