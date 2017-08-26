@@ -10,6 +10,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import lejos.nxt.LCD;
+import lejos.nxt.Motor;
 import lejos.nxt.Sound;
 import lejos.nxt.comm.BTConnection;
 import lejos.nxt.comm.Bluetooth;
@@ -63,6 +64,18 @@ public class ManualControl {
                         break;
                     case 'd':
                         mc.turnRightContinuously();
+                        break;
+                    case 'i':
+                        mc.moveForwardContinuously(Motor.A.getMaxSpeed() * 0.70f);
+                        break;
+                    case 'k':
+                        mc.moveBackwardContinuously(Motor.A.getMaxSpeed() * 0.70f);
+                        break;
+                    case 'j':
+                        mc.turnLeftContinuously(Motor.A.getMaxSpeed() * 0.50f);
+                        break;
+                    case 'l':
+                        mc.turnRightContinuously(Motor.A.getMaxSpeed() * 0.50f);
                         break;
                     case 'r':
                         mc.grab();
