@@ -28,29 +28,69 @@ public class VerkkokauppaController implements AutomatedControl {
     public void start(DataInputStream dis) throws InterruptedException {
         this.dis = dis;
         try {
-            TouchSensor touch = new TouchSensor(SensorPort.S4);
             LightSensor light = new LightSensor(SensorPort.S1);
+            UltrasonicSensor sonic = new UltrasonicSensor(SensorPort.S3);
             
-            mc.moveBackward(maxSpeed, 100);
-            long startTime = System.currentTimeMillis();
             boolean stop = false;
-            startTime = System.currentTimeMillis();
+            int count = 0;
+            
+            
+            mc.moveForward(maxSpeed, 35);
+            
+            while (!stop && sonic.getDistance() > 35) {
+                stop = shouldStop();
+                System.out.println("LS: " + light.getLightValue());
+                //wait
+            }
+            
+            mc.turnLeft(maxSpeed, 45);
+            mc.moveForward(maxSpeed, 55);
+            
+            while (!stop && sonic.getDistance() > 35) {
+                stop = shouldStop();
+                System.out.println("LS: " + light.getLightValue());
+                //wait
+            }
+            
+            mc.turnLeft(maxSpeed, 35);
+            mc.moveForward(maxSpeed, 40);
+            
+            //mc.moveForwardContinuously(maxSpeed);
+            /*
             // from ramp to last spin
             while (!stop) {
                 stop = shouldStop();
-                if (light.readValue() < 40) {
-                    blacksFound++;
-                }
-                
-                if (touch.isPressed()) {
+                 System.out.println("LS: " + light.getLightValue());
+                if (light.readValue() < 55 && light.readValue() > 45) {
                     mc.stop();
-                    mc.moveForward(maxSpeed * 0.75f, 10);
-                    mc.turnRight(maxSpeed * 0.5f, 33);
-                    mc.moveBackward(maxSpeed * 0.75f, 20);
+                    mc.moveForward(maxSpeed, 8);
+                    while (!stop && sonic.getDistance() > 35) {
+                        stop = shouldStop();
+                        System.out.println("LS: " + light.getLightValue());
+                        //wait
+                    }
+                    if (stop) {
+                        break;
+                    }
+                    
+                    if (count == 1) {
+                        mc.turnLeft(maxSpeed, 50);
+                        mc.moveForward(maxSpeed, 50);
+                    } else {
+                        mc.turnLeft(maxSpeed, 40);
+                        mc.moveForwardContinuously(maxSpeed);
+                    }
+                    
+                    count++;
+                } 
+                
+                if (count == 2) {
                     break;
                 }
-            }
-            System.out.println("BF: " + blacksFound);
+            }*/
+            
+            
+            //System.out.println("BF: " + blacksFound);
             
         } catch (InterruptedException ex) {
             System.out.println("Command failed");

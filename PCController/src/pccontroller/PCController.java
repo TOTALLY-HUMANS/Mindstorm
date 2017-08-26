@@ -85,6 +85,7 @@ public class PCController extends JFrame implements KeyListener {
 //            dos.flush();
 //            System.out.println("Key typed: " + e.getKeyChar());
 //        } catch (IOException ex) {
+
 //            System.out.println("ERROR: Key typed: " + e.getKeyChar());
 //        }
     }
