@@ -69,10 +69,7 @@ public class MovementController {
         pilot.rotate(angle, false);
     }
     
-    public void turnRight(float speed, float angle) throws InterruptedException {
-        pilot.setRotateSpeed(speed);
-        pilot.rotate(angle, false);
-    }
+   
 
     public void turnRightContinuously() throws InterruptedException {
         turnRightContinuously(turnSpeed);
@@ -89,11 +86,7 @@ public class MovementController {
     public void turnLeft(float speed) throws InterruptedException {
         turnLeft(speed, 90 / 16);
     }
-    
-    public void turnLeft(float speed, float angle) throws InterruptedException {
-        pilot.setRotateSpeed(speed);
-        pilot.rotate(-angle, false);
-    }
+   
     
     public void turnLeft(float speed, float angle) throws InterruptedException {
         pilot.setRotateSpeed(speed);
