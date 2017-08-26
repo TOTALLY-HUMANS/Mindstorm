@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import lejos.pc.comm.*;
 import java.io.*;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +18,7 @@ public class PCController extends JFrame implements KeyListener {
     DataOutputStream dos;
     DataInputStream dis;
     NXTConnector conn;
-    boolean keyDown = false;
+    HashMap<Character, Boolean> keyDownMap = new HashMap<Character, Boolean>();
 
     public PCController(String s) {
         super(s);
@@ -79,14 +80,15 @@ public class PCController extends JFrame implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        char character = e.getKeyChar();
 
-        if (keyDown) {
+        if (keyDownMap.containsKey(character) && keyDownMap.get(character) == true) {
             return;
         }
 
         try {
-            keyDown = true;
-            dos.writeInt(e.getKeyChar());
+            keyDownMap.put(character, true);
+            dos.writeInt(character);
             dos.flush();
             System.out.println("Key pressed: " + e.getKeyChar());
         } catch (IOException ex) {
@@ -97,11 +99,18 @@ public class PCController extends JFrame implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
+        if (keyDownMap.get(e.getKeyChar()) == false) {
+            return;
+        }
         System.out.println("Key released: " + e.getKeyChar());
 
         try {
-            keyDown = false;
-            dos.writeInt('n');
+            keyDownMap.put(e.getKeyChar(), false);
+            if (e.getKeyChar() == 'r') {
+                dos.writeInt('x');
+            } else {
+                dos.writeInt('n');
+            }
             dos.flush();
             System.out.println("Key released: " + e.getKeyChar());
         } catch (IOException ex) {
