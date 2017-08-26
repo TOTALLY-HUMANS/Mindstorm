@@ -21,9 +21,11 @@ import lejos.nxt.comm.Bluetooth;
 public class ManualControl {
 
     LineFollower lf;
+    VerkkokauppaController vk;
 
     public ManualControl() {
         this.lf = new LineFollower();
+        this.vk = new VerkkokauppaController();
     }
 
     public void listen() throws IOException, InterruptedException {
@@ -72,7 +74,9 @@ public class ManualControl {
                         // mode 1
                         break;
                     case '2':
-                        // mode 2
+                        Sound.beep();
+                        vk.start(dis);
+                        Sound.beep();
                         break;
                     case '3':
                         Sound.beep();

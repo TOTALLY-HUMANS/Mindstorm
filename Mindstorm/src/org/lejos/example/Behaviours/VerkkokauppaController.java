@@ -52,6 +52,7 @@ public class VerkkokauppaController implements AutomatedControl {
                     break;
                 }
             }
+            mc.stop();
             
         } catch (InterruptedException ex) {
             System.out.println("Command failed");
