@@ -55,7 +55,7 @@ public class MovementController {
         pilot.rotate(90 / 8, false);
     }
 
-    public void turnRightContinously() throws InterruptedException {
+    public void turnRightContinuously() throws InterruptedException {
         turnRightContinuously(turnSpeed);
     }
     public void turnRightContinuously(int speed) throws InterruptedException {
@@ -71,7 +71,7 @@ public class MovementController {
         pilot.rotate(-90 / 8, false);
     }
 
-    public void turnLeftContinously() throws InterruptedException {
+    public void turnLeftContinuously() throws InterruptedException {
         turnLeftContinuously(turnSpeed);
     }
     public void turnLeftContinuously(int speed) throws InterruptedException {
