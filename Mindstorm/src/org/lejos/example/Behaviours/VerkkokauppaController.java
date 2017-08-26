@@ -23,6 +23,7 @@ public class VerkkokauppaController implements AutomatedControl {
     DataInputStream dis;
     
     public void start(DataInputStream dis) throws InterruptedException {
+        this.dis = dis;
         try {
             mc.moveBackwardContinuously(Motor.A.getMaxSpeed());
             LightSensor ls = new LightSensor(SensorPort.S1);
@@ -47,7 +48,8 @@ public class VerkkokauppaController implements AutomatedControl {
             
             UltrasonicSensor us = new UltrasonicSensor(SensorPort.S4);
             while (!stop) {
-                if (us.getDistance() > 100) {
+                Integer distance = us.getDistance();
+                if (distance != null && us.getDistance() > 100) {
                     Thread.sleep(2000);
                     mc.moveBackwardContinuously(Motor.A.getMaxSpeed());
                     break;
