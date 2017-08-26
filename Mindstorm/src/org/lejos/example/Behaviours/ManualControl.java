@@ -19,12 +19,18 @@ import lejos.nxt.comm.Bluetooth;
  */
 public class ManualControl {
 
+    LineFollower lf;
+
+    public ManualControl() {
+        this.lf = new LineFollower();
+    }
+
     public void listen() throws IOException, InterruptedException {
         String connected = "Connected";
         String waiting = "Waiting...";
         String closing = "Closing...";
         boolean stop = false;
-        
+
         MovementController mc = new MovementController();
 
         while (true) {
@@ -65,10 +71,13 @@ public class ManualControl {
                         // mode 1
                         break;
                     case '2':
-                        // mode 1
+                        // mode 2
                         break;
                     case '3':
-                        // mode 1
+                        lf.start(dis);
+                        break;
+                    case '0':
+                        mc.stop();
                         break;
                     case 'n':
                         mc.stop();

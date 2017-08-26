@@ -1,23 +1,45 @@
 package org.lejos.example.Behaviours;
 
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import lejos.nxt.LightSensor;
 import lejos.nxt.SensorPort;
+import org.lejos.example.AutomatedControl;
 
-public class LineFollower {
+public class LineFollower implements AutomatedControl {
 
     static LightSensor cs = new LightSensor(SensorPort.S1);
     static int colorThreshold = 50;
     static int lineSearchSteps = 8;
 
     MovementController mc = new MovementController();
-
+    DataInputStream dis;
+    
     boolean lastFoundLeft = false;
+    
+    public LineFollower() {
+        
+    }
 
-    public void start() throws InterruptedException {
+    public void start(DataInputStream dis) throws InterruptedException {
+        this.dis = dis;
         advance();
     }
 
     private void advance() throws InterruptedException {
+        int n = 1;
+        try {
+            n = dis.readChar();
+        } catch (IOException ex) {
+            Logger.getLogger(LineFollower.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (n == '0') {
+            stop();
+            return;
+        }
+        
         System.out.println("Forward!");
         mc.moveForward();
         if (lineFound()) {
@@ -68,6 +90,10 @@ public class LineFollower {
             }
         }
         return false;
+    }
+    
+    public void stop() {
+        System.out.println("Switched to manual control!");
     }
 
 }
