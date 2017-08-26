@@ -32,7 +32,7 @@ public class VerkkokauppaController implements AutomatedControl {
             
             // from ramp to last spin
             while (!stop) {
-                stop = checkStop();
+                stop = shouldStop();
                 float lightValue = ls.getLightValue();
                 if (lightValue < 50) {
                     if (startTime == 0) {
@@ -61,7 +61,7 @@ public class VerkkokauppaController implements AutomatedControl {
         }
     }
 
-    public boolean checkStop() {
+    public boolean shouldStop() {
         char n = 1;
         try {
             n = dis.readChar();

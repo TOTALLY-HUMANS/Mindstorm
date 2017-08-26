@@ -13,5 +13,5 @@ import java.io.DataInputStream;
  */
 public interface AutomatedControl {
     public void start(DataInputStream dis) throws InterruptedException;
-    public boolean checkStop();
+    public boolean shouldStop();
 }
