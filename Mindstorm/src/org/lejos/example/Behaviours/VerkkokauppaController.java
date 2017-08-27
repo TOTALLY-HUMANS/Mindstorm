@@ -43,7 +43,7 @@ public class VerkkokauppaController implements AutomatedControl {
             mc.turnRight(maxSpeed, 90);
             
             Sound.beep();
-            while (!stop && sonic.getDistance() > 35) {
+            while (!stop && sonic.getDistance() > 40) {
                 stop = shouldStop();
                 System.out.println("LS: " + light.getLightValue());
                 //wait
@@ -51,15 +51,10 @@ public class VerkkokauppaController implements AutomatedControl {
             Sound.beep();
             mc.turnLeft(maxSpeed, 29);
             
-            mc.moveForward(maxSpeed, 65);
+            mc.moveForward(maxSpeed, 70);
             
-            while (!stop && sonic.getDistance() < 200) {
-                stop = shouldStop();
-                System.out.println("LS: " + light.getLightValue());
-                //wait
-            }
             mc.turnLeft(maxSpeed, 10);
-            mc.moveForward(maxSpeed, 55);
+            mc.moveForward(maxSpeed, 50);
             
             /*
             while (!stop && sonic.getDistance() > 30) {
