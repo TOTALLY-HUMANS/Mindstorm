@@ -24,6 +24,7 @@ public class LineFollower implements AutomatedControl {
     DataInputStream dis;
 
     boolean lastFoundLeft = false;
+    int lastAttemps = 0;
     
     static float movementSpeed = Motor.A.getMaxSpeed() * 0.60f;
 
@@ -77,7 +78,8 @@ public class LineFollower implements AutomatedControl {
      * @throws InterruptedException
      */
     private void searchForLine() throws InterruptedException {
-        searchForLine(2);
+        int attemps = lastAttemps >= 5 ? 5 : 2;
+        searchForLine(attemps);
     }
 
     /**
@@ -122,6 +124,7 @@ public class LineFollower implements AutomatedControl {
             mc.turnLeft(rotSpeed, smallRot);
             if (lineFound()) {
                 lastFoundLeft = true;
+                lastAttemps = steps;
                 return true;
             }
         }
@@ -145,6 +148,7 @@ public class LineFollower implements AutomatedControl {
             mc.turnRight(rotSpeed, smallRot);
             if (lineFound()) {
                 lastFoundLeft = false;
+                lastAttemps = steps;
                 return true;
             }
         }
