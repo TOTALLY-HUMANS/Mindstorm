@@ -3,6 +3,7 @@ package org.lejos.example.Behaviours;
 import java.io.DataInputStream;
 import java.io.IOException;
 import lejos.nxt.LightSensor;
+import lejos.nxt.Motor;
 import lejos.nxt.SensorPort;
 import org.lejos.example.AutomatedControl;
 
@@ -17,12 +18,14 @@ public class LineFollower implements AutomatedControl {
 
     int smallRot = 5;
     int bigRot = 60;
-    int rotSpeed = 80;
+    int rotSpeed = 100;
 
     MovementController mc = new MovementController();
     DataInputStream dis;
 
     boolean lastFoundLeft = false;
+    
+    static float movementSpeed = Motor.A.getMaxSpeed() * 0.60f;
 
     public LineFollower() {
 
@@ -52,7 +55,7 @@ public class LineFollower implements AutomatedControl {
      */
     private boolean advance() throws InterruptedException {
         //System.out.println("Forward!");
-        mc.moveForward();
+        mc.moveForward(movementSpeed);
         return lineFound();
     }
 
@@ -74,7 +77,7 @@ public class LineFollower implements AutomatedControl {
      * @throws InterruptedException
      */
     private void searchForLine() throws InterruptedException {
-        searchForLine(1);
+        searchForLine(2);
     }
 
     /**
@@ -90,14 +93,16 @@ public class LineFollower implements AutomatedControl {
 
         boolean lineFound = false;
         int steps = attempt;
+        int plus = 0;
+        if (steps == 2) plus = 4;
         // Left search
         if (lastFoundLeft) {
-            lineFound = searchLeft(steps) || searchRight(steps) || searchRight(steps + 1) || searchLeft(steps + 1);
+            lineFound = searchLeft(steps) || searchRight(steps) || searchRight(steps + plus) || searchLeft(steps + plus);
         } else {
-            lineFound = searchRight(steps) || searchLeft(steps) || searchLeft(steps + 1) || searchRight(steps + 1);
+            lineFound = searchRight(steps) || searchLeft(steps) || searchLeft(steps + plus) || searchRight(steps + plus);
         }
         if (!lineFound) {
-            searchForLine(attempt + 2);
+            searchForLine(attempt + 1 + plus);
         }
     }
 
