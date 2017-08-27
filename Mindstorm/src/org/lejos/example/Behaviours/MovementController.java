@@ -107,12 +107,12 @@ public class MovementController {
 
     public void grab() throws InterruptedException {
         Motor.C.setSpeed(40);
-        Motor.C.forward();
+        Motor.C.backward();
     }
 
     public void ungrab() throws InterruptedException {
         Motor.C.setSpeed(40);
-        Motor.C.backward();
+        Motor.C.forward();
     }
     
     public void release() {

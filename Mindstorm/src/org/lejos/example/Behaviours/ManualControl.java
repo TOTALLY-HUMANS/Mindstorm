@@ -29,6 +29,7 @@ public class ManualControl {
     public ManualControl() {
         this.lf = new LineFollower();
         this.vk = new VerkkokauppaController();
+        this.bn = new BumpNavigator();
     }
 
     public void listen() throws IOException, InterruptedException {
