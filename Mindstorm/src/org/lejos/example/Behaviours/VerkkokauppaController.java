@@ -10,6 +10,7 @@ import java.io.IOException;
 import lejos.nxt.LightSensor;
 import lejos.nxt.Motor;
 import lejos.nxt.SensorPort;
+import lejos.nxt.Sound;
 import lejos.nxt.TouchSensor;
 import lejos.nxt.UltrasonicSensor;
 import org.lejos.example.AutomatedControl;
@@ -35,18 +36,29 @@ public class VerkkokauppaController implements AutomatedControl {
             int count = 0;
             
             
-            mc.moveForward(maxSpeed, 35);
+            mc.moveBackward(maxSpeed, 40);
+            mc.turnRight(maxSpeed, 90);
             
-            while (!stop && sonic.getDistance() > 35) {
+            Sound.beep();
+            while (!stop && sonic.getDistance() > 30) {
+                stop = shouldStop();
+                System.out.println("LS: " + light.getLightValue());
+                //wait
+            }
+            Sound.beep();
+            mc.turnLeft(maxSpeed, 26);
+            mc.moveForward(maxSpeed, 70);
+            
+            while (!stop && sonic.getDistance() < 200) {
                 stop = shouldStop();
                 System.out.println("LS: " + light.getLightValue());
                 //wait
             }
             
-            mc.turnLeft(maxSpeed, 45);
             mc.moveForward(maxSpeed, 55);
             
-            while (!stop && sonic.getDistance() > 35) {
+            /*
+            while (!stop && sonic.getDistance() > 30) {
                 stop = shouldStop();
                 System.out.println("LS: " + light.getLightValue());
                 //wait
@@ -54,6 +66,7 @@ public class VerkkokauppaController implements AutomatedControl {
             
             mc.turnLeft(maxSpeed, 35);
             mc.moveForward(maxSpeed, 40);
+            */
             
             //mc.moveForwardContinuously(maxSpeed);
             /*
