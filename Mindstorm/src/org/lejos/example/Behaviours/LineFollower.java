@@ -44,6 +44,8 @@ public class LineFollower implements AutomatedControl {
         while (!shouldStop()) {
             if (!advance()) {
                 searchForLine();
+            } else {
+                lastAttemps = 0;
             }
         }
     }
@@ -148,7 +150,11 @@ public class LineFollower implements AutomatedControl {
             mc.turnRight(rotSpeed, smallRot);
             if (lineFound()) {
                 lastFoundLeft = false;
-                lastAttemps = steps;
+                if (lastAttemps < 5) {
+                    lastAttemps = steps;
+                } else {
+                    lastAttemps = 0;
+                }
                 return true;
             }
         }
