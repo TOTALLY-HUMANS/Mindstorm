@@ -8,17 +8,14 @@ package org.lejos.example.Behaviours;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import lejos.nxt.LCD;
 import lejos.nxt.Motor;
-import lejos.nxt.SensorPort;
 import lejos.nxt.Sound;
 import lejos.nxt.comm.BTConnection;
 import lejos.nxt.comm.Bluetooth;
 
 /**
- *
- * @author talon
+ * Controls the robot with keyboard input via bluetooth
  */
 public class ManualControl {
 
@@ -32,6 +29,12 @@ public class ManualControl {
         this.bn = new BumpNavigator();
     }
 
+    /**
+     * Start listening to bluetooth commands
+     *
+     * @throws IOException
+     * @throws InterruptedException
+     */
     public void listen() throws IOException, InterruptedException {
         String connected = "Connected";
         String waiting = "Waiting...";
@@ -52,6 +55,9 @@ public class ManualControl {
             DataInputStream dis = btc.openDataInputStream();
             DataOutputStream dos = btc.openDataOutputStream();
 
+            /**
+             * Read characters and start behaviours based on them
+             */
             while (true) {
                 int n = dis.readChar();
 

@@ -6,6 +6,9 @@ import lejos.nxt.LightSensor;
 import lejos.nxt.SensorPort;
 import org.lejos.example.AutomatedControl;
 
+/**
+ * Follows a line on the ground based on data from the light sensor
+ */
 public class LineFollower implements AutomatedControl {
 
     static LightSensor cs = new LightSensor(SensorPort.S1);
@@ -25,6 +28,12 @@ public class LineFollower implements AutomatedControl {
 
     }
 
+    /**
+     * Start movement
+     *
+     * @param dis
+     * @throws InterruptedException
+     */
     public void start(DataInputStream dis) throws InterruptedException {
         this.dis = dis;
         stopping = false;
@@ -35,22 +44,45 @@ public class LineFollower implements AutomatedControl {
         }
     }
 
+    /**
+     * Move forward
+     *
+     * @return
+     * @throws InterruptedException
+     */
     private boolean advance() throws InterruptedException {
         //System.out.println("Forward!");
         mc.moveForward();
         return lineFound();
     }
 
+    /**
+     * Checks if the line on the ground is seen
+     *
+     * @return
+     * @throws InterruptedException
+     */
     private boolean lineFound() throws InterruptedException {
         System.out.println("LV " + cs.getLightValue());
         boolean found = cs.getLightValue() < colorThreshold;
         return found;
     }
 
+    /**
+     * Start looking for the line if it is lost
+     *
+     * @throws InterruptedException
+     */
     private void searchForLine() throws InterruptedException {
         searchForLine(1);
     }
 
+    /**
+     * Start looking for the line if it is lost
+     *
+     * @param attempt
+     * @throws InterruptedException
+     */
     private void searchForLine(int attempt) throws InterruptedException {
         if (shouldStop()) {
             return;
@@ -69,24 +101,18 @@ public class LineFollower implements AutomatedControl {
         }
     }
 
+    /**
+     * Look for the line on the left side
+     *
+     * @param steps
+     * @return
+     * @throws InterruptedException
+     */
     private boolean searchLeft(int steps) throws InterruptedException {
         if (shouldStop()) {
             return true;
         }
 
-        /*if (steps == 1) {
-            mc.turnLeft(rotSpeed, smallRot);
-            if (lineFound()) {
-                lastFoundLeft = true;
-                return true;
-            }
-        } else if (steps == 2) {
-            mc.turnLeft(rotSpeed, bigRot);
-            if (lineFound()) {
-                lastFoundLeft = true;
-                return true;
-            }
-        } else {*/
         for (int i = 0; i < steps; i++) {
             mc.turnLeft(rotSpeed, smallRot);
             if (lineFound()) {
@@ -94,28 +120,21 @@ public class LineFollower implements AutomatedControl {
                 return true;
             }
         }
-        //}
+
         return false;
     }
 
+    /**
+     * Look for the line on the right side
+     *
+     * @param steps
+     * @return
+     * @throws InterruptedException
+     */
     private boolean searchRight(int steps) throws InterruptedException {
         if (shouldStop()) {
             return true;
         }
-
-        /*if (steps == 1) {
-            mc.turnRight(rotSpeed, smallRot);
-            if (lineFound()) {
-                lastFoundLeft = false;
-                return true;
-            }
-        } else if (steps == 2) {
-            mc.turnRight(rotSpeed, bigRot);
-            if (lineFound()) {
-                lastFoundLeft = false;
-                return true;
-            }
-        } else {*/
         // Right search
         for (int i = 0; i < steps; i++) {
             mc.turnRight(rotSpeed, smallRot);
@@ -124,10 +143,15 @@ public class LineFollower implements AutomatedControl {
                 return true;
             }
         }
-        //}
+
         return false;
     }
 
+    /**
+     * Check if we have received a command to stop this behaviour
+     *
+     * @return
+     */
     public boolean shouldStop() {
         if (stopping) {
             return true;
