@@ -19,6 +19,9 @@ import org.lejos.example.AutomatedControl;
  *
  * @author pulli
  */
+/*
+    Moves through rotating plates, using ultrasonic senor to detect when to change plate.
+*/
 public class VerkkokauppaController implements AutomatedControl {
 
     private float maxSpeed = Motor.A.getMaxSpeed();
@@ -47,6 +50,9 @@ public class VerkkokauppaController implements AutomatedControl {
             }
             Sound.beep();
             mc.turnLeft(maxSpeed, 26);
+            if (sonic.getDistance() < 40) {
+                mc.turnLeft(maxSpeed, 26);
+            }
             mc.moveForward(maxSpeed, 70);
             
             while (!stop && sonic.getDistance() < 200) {
