@@ -48,13 +48,33 @@ public class VerkkokauppaController implements AutomatedControl {
                 System.out.println("LS: " + light.getLightValue());
                 //wait
             }
+            stop = shouldStop();
+            if (stop) {
+                return;
+            }
+            
             Sound.beep();
             mc.turnLeft(maxSpeed, 29);
             
+            stop = shouldStop();
+            if (stop) {
+                return;
+            }
+            
             mc.moveForward(maxSpeed, 70);
+            
+            stop = shouldStop();
+            if (stop) {
+                return;
+            }
             
             mc.turnLeft(maxSpeed, 10);
             mc.moveForward(maxSpeed, 50);
+            
+            stop = shouldStop();
+            if (stop) {
+                return;
+            }
             
             /*
             while (!stop && sonic.getDistance() > 30) {
