@@ -18,7 +18,7 @@ public class LineFollower implements AutomatedControl {
 
     int smallRot = 5;
     int bigRot = 60;
-    int rotSpeed = 100;
+    int rotSpeed = 50;
 
     MovementController mc = new MovementController();
     DataInputStream dis;
@@ -80,7 +80,7 @@ public class LineFollower implements AutomatedControl {
      * @throws InterruptedException
      */
     private void searchForLine() throws InterruptedException {
-        int attemps = lastAttemps >= 5 ? 5 : 2;
+        int attemps = lastAttemps >= 8 ? 7 : 2;
         searchForLine(attemps);
     }
 
@@ -98,7 +98,7 @@ public class LineFollower implements AutomatedControl {
         boolean lineFound = false;
         int steps = attempt;
         int plus = 0;
-        if (steps == 2) plus = 4;
+        if (steps == 2) plus = 6;
         // Left search
         if (lastFoundLeft) {
             lineFound = searchLeft(steps) || searchRight(steps) || searchRight(steps + plus) || searchLeft(steps + plus);
