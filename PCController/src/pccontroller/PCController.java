@@ -5,13 +5,14 @@ import java.awt.event.KeyListener;
 import lejos.pc.comm.*;
 import java.io.*;
 import java.util.HashMap;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * PC controller, listens to keyboard input and sends the commands to the robot
+ * via bluetooth
+ */
 public class PCController extends JFrame implements KeyListener {
 
     JLabel label;
@@ -35,40 +36,21 @@ public class PCController extends JFrame implements KeyListener {
         //logSensors();
     }
 
+    /**
+     * Create the listener
+     */
     public static void main(String[] args) throws InterruptedException, IOException {
         //Scanner reader = new Scanner(System.in);
 
         new PCController("Key Listener Tester");
-        
-        
-        /*
-        while (true) {
-            try {
-                // Käskyt: w a s d
-                System.out.print("Anna käsky: ");
-                char n = reader.nextLine().charAt(0);
-                System.out.println("Sending " + (n));
-                dos.writeInt(n);
-                dos.flush();
-
-            } catch (IOException ioe) {
-                System.out.println("IO Exception writing bytes:");
-                System.out.println(ioe.getMessage());
-                break;
-            }
-
-            try {
-                System.out.println("Received " + dis.readInt());
-            } catch (IOException ioe) {
-                System.out.println("IO Exception reading bytes:");
-                System.out.println(ioe.getMessage());
-                break;
-            }
-        }
-         */
-
     }
-    
+
+    /**
+     * Print robot sensor logs
+     *
+     * @throws InterruptedException
+     * @throws IOException
+     */
     public void logSensors() throws InterruptedException, IOException {
         Thread.sleep(1000);
         if (dis.available() != 0) {
@@ -79,17 +61,13 @@ public class PCController extends JFrame implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-
-//        try {
-//            dos.writeInt(e.getKeyChar());
-//            dos.flush();
-//            System.out.println("Key typed: " + e.getKeyChar());
-//        } catch (IOException ex) {
-
-//            System.out.println("ERROR: Key typed: " + e.getKeyChar());
-//        }
     }
 
+    /**
+     * Check if a key is pressed and send a message to the robot
+     *
+     * @param e
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         char character = e.getKeyChar();
@@ -109,6 +87,11 @@ public class PCController extends JFrame implements KeyListener {
 
     }
 
+    /**
+     * Check if key released and send a message to the robot
+     *
+     * @param e
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         if (keyDownMap.get(e.getKeyChar()) == false) {
@@ -130,6 +113,9 @@ public class PCController extends JFrame implements KeyListener {
         }
     }
 
+    /**
+     * Connect to the robot
+     */
     private void connect() {
         NXTConnector conn = new NXTConnector();
         conn.addLogListener(new NXTCommLogListener() {
@@ -159,6 +145,13 @@ public class PCController extends JFrame implements KeyListener {
         this.dos = conn.getDataOut();
     }
 
+    /**
+     * Exit
+     *
+     * @param dos
+     * @param dis
+     * @param conn
+     */
     private static void quitProgram(DataOutputStream dos, DataInputStream dis, NXTConnector conn) {
         try {
             dis.close();
